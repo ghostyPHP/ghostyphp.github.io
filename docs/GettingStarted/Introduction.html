@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TAILWIND -->
+     <script src="../../assets/js/tailwind.js"></script>
+
+    <!-- ROBOTO FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+
+    <!-- DOSC CSS -->
+    <link rel="stylesheet" href="../../assets/css/docs/main.css">
+
+    <!-- MARKDOWN CSS -->
+     <link rel="stylesheet" href="../../assets/css/markdown.css">
+
+     <!-- PRISM.JS -->
+      <link rel="stylesheet" href="../../assets/js/prism/prism.css">
+      <script src="../../assets/js/prism/prism.js"></script>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="../../assets/icons/favicon.svg" type="image/x-icon">
+
+    <title>Ghosty - Home</title>
+</head>
+<body>
+    <div class="root">
+        <div class="app">
+            <div class="w-full h-10 border-b border-b-white/10">
+                <div class="wrapper h-full">
+                    <div class="h-full w-full">
+                        <a href="../../index.html" class="h-full flex items-center w-fit">
+                            <img src="../../assets/icons/favicon.svg" alt="Ghosty" class="h-[25px]">
+                            <div class="font-bold ml-2 text-lg">Ghosty</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper mt-12">
+                <div class="w-full relative flex">
+
+                    <div class="h-fit w-[200px]  rounded py-3 px-3 [&>*+*]:mt-4">
+                        <div>
+                            <div class="text-sm font-medium">GETTING STARTED</div>
+                            <div class="content">
+                                <a href="" class="text-[#EBEBEB99] hover:text-white duration-200 active">Introduction</a>
+                                <a href="../GettingStarted/Installation.html" class="text-[#EBEBEB99] hover:text-white duration-200">Installation</a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="text-sm font-medium">BASICS</div>
+                            <div class="content">
+                                <a href="../Basics/Routing.html" class="text-[#EBEBEB99] hover:text-white duration-200">Routing</a>
+                                <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
+                                <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
+                                <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
+                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm font-medium">DATABASE</div>
+                            <div class="content">
+                                <a href="../Database/Basics.html" class="text-[#EBEBEB99] hover:text-white duration-200">Basics</a>
+                                <a href="../Database/Using.html" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm font-medium">FILESYSTEM</div>
+                            <div class="content">
+                                <a href="../Filesystem/Baics.html" class="text-[#EBEBEB99] hover:text-white duration-200">Baics</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-sm font-medium">ARCHITECTURE CONCEPTS</div>
+                            <div class="content">
+                                <a href="../ArchitectureConcepts/ServiceContainer.html" class="text-[#EBEBEB99] hover:text-white duration-200">Service Container</a>
+                                <a href="../ArchitectureConcepts/ServiceProviders.html" class="text-[#EBEBEB99] hover:text-white duration-200">Service Providers</a>
+                                <a href="../ArchitectureConcepts/Facades.html" class="text-[#EBEBEB99] hover:text-white duration-200">Facades</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
+
+
+                        <h1><a id="user-content-h1" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+                        <h2><a id="user-content-h2" class="anchor" name="Idea" href="#Idea" aria-hidden="true"><span class="octicon octicon-link"></span></a>Idea</h2>
+
+                        <p>Ghosty's idea is that it does not provide the ability to create monolithic singleton applications, it is intended as a framework for developing APIs for your applications.</p>
+
+                        <h2><a id="user-content-h2" class="anchor" name="About" href="#About" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
+
+                        <p>Ghosty is an open framework for developing web applications in PHP, based on the MVC (Model-View-Controller) architecture. The framework offers an elegant and extensible solution for creating scalable, flexible and secure applications.</p>
+
+                        <h2><a id="user-content-h2" class="anchor" name="Features" href="#Features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+                        <p>MVC Architecture: Ghosty is based on the Model-View-Controller architecture, separating application logic, UI and data to improve code readability and maintainability.</p>
+
+                        <p>Open Source: The framework comes with an open-source license, allowing users to freely modify, redistribute and improve it.</p>
+
+                        <p>Extensibility and Flexibility: Ghosty provides mechanisms to easily add your own functionality and extend the core components of the framework.</p>
+
+                        <p>Convenient routing: Supports a convenient and flexible routing system for processing requests and interacting with controllers.</p>
+
+                        <p>Database Integration: Provides support for multiple databases, allowing you to interact with your data securely and efficiently.</p>
+
+                        <h2><a id="user-content-h2" class="anchor" name="Sources" href="#Sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h2>
+
+                        <p>You can find the entire source code of the project on its GitHub, or copy the code for yourself right now</p>
+
+                        <pre><code class="language-bash code !text-[14px]">git clone https://github.com/GhostyPHP/Ghosty</code></pre>
+                    </div>
+
+                    <div class="h-fit w-[200px] ml-auto">
+                        <div class="text-sm font-medium">ON THIS PAGE</div>
+                        <a href="#Idea" class="text-[#EBEBEB99] hover:text-white duration-200">Idea</a>
+                        <a href="#About" class="text-[#EBEBEB99] hover:text-white duration-200">About</a>
+                        <a href="#Features" class="text-[#EBEBEB99] hover:text-white duration-200">Features</a>
+                        <a href="#Sources" class="text-[#EBEBEB99] hover:text-white duration-200">Sources</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+body{
+    background-image: url('../../images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+*{
+    font-family: "Roboto Condensed", sans-serif;
+}

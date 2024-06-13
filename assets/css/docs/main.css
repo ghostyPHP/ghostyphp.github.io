@@ -1,0 +1,22 @@
+*{
+    font-family: "Roboto", sans-serif;
+}
+
+.docs-content{
+    max-width: 650px;
+    width: 100%;
+}
+
+body{
+    background-color: #1a1a1a;
+}
+
+.active{
+    color: white !important; 
+}
+
+.docs-content a{
+    display: inline;
+
+    margin-bottom: 500px;
+}
