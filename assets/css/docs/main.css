@@ -25,3 +25,30 @@ body{
 .docs-content a{
     display: inline;
 }
+
+@media (width <= 1000px) {
+    .main-page{
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .docs-content{
+        margin-left: 0 !important;
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .nav-page{
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .nav-menu{
+        margin-top: 20px;
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-bottom: 200px;
+    }
+}
