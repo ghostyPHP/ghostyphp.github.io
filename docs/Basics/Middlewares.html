@@ -56,7 +56,7 @@
                             <div class="text-sm font-medium">GETTING STARTED</div>
                             <div class="content">
                                 <a href="../GettingStarted/Introduction.html" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                                <a href="" class="text-[#EBEBEB99] hover:text-white duration-200 active">Installation</a>
+                                <a href="../GettingStarted/Installation.html" class="text-[#EBEBEB99] hover:text-white duration-200">Installation</a>
                             </div>
                         </div>
                         
@@ -66,7 +66,7 @@
                                 <a href="../Basics/Routing.html" class="text-[#EBEBEB99] hover:text-white duration-200">Routing</a>
                                 <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
                                 <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
-                                <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
+                                <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Middlewares</a>
                                 <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
                             </div>
                         </div>
@@ -98,48 +98,60 @@
 
                     <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
 
+                        <h1><a id="user-content-h1" class="anchor" name="Middlewares" href="#Middlewares" aria-hidden="true"><span class="octicon octicon-link"></span></a>Middlewares</h1>
 
-                        <h1><a id="user-content-h1" class="anchor" name="Installation" href="#Installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+                        <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Creating project" href="#Creating project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating project</h2>
+                        <p>Middleware provides a convenient mechanism for inspecting and filtering HTTP requests coming into your application.</p>
 
-                        <h3><a id="user-content-h3" class="anchor" name="Composer" href="#Composer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Composer</h3>
+                        <p>By default, all of the middlewares for your application are stored in the app/middlewares/ directory.</p>
 
-                        <p>Before starting the installation, make sure that you have <a href="https://getcomposer.org/">Composer</a> and PHP installed</p>
+                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
 
-                        <p>After you have made sure that you have <a href="https://getcomposer.org/">Composer</a> and PHP installed, you can run the following command to create a new project</p>
+                        <p>Middlewares must be specified in the <a href="../Basics/Routing.html">route</a> to use it.</p>
 
-                        <pre><code class="language-bash code !text-[14px]">composer create-project ghosty/ghosty example-project</code></pre>
+                        <pre><code class="language-php code">// routes/api.php
+use Ghosty\Framework\Support\Facades\Route;
 
+Route::get('/home')
+    ->controller(\App\Controllers\HomeController::class)
+    ->action('show')
+    ->middleware(\App\Middlewares\HomeMiddleware::class);</code></pre>
 
+                        <p>Here is an example of middleware that displays 'Hello World from Middleware!'</p>
 
-                        <h3><a id="user-content-h3" class="anchor" name="GitHub" href="#GitHub" aria-hidden="true"><span class="octicon octicon-link"></span></a>GitHub</h3>
+                        <pre><code class="language-php code">// app/middlewares/HomeMiddleware.php
+namespace App\Middlewares;
 
+class HomeMiddleware
+{
+    public function handle()
+    {
+        echo 'Hello World! from middleware';
+    }
+}</code></pre>
 
-                        <p>You can also copy the example application code from the Github</p>
+                        <p>Here is an example of HomeController that displays 'Hello World from Controller!'</p>
 
-                        <pre><code class="language-bash code !text-[14px]">git clone https://github.com/GhostyPHP/Ghosty</code></pre>
+                        <pre><code class="language-php code">// app/Controllers/HomeController.php
+namespace App\Controllers;
 
+class HomeController
+{
+    public function index()
+    {
+        echo 'Hello World from Controller!';
+    }
+}</code></pre>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Initial Configuration" href="#Initial Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initial Configuration</h2>
-
-                        <p>You can configure all the environment variables in the .env file, but remember that this file mainly contains variables needed to run the application, such as secret keys, database connection information and other services, so this file should not be stored in your repositories.</p>
-
-                        <h2><a id="user-content-h2" class="anchor" name="Starting the server" href="#Starting the server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the server</h2>
-
-                        <p>After creating and configuring the project, you can go to the directory of the newly created project and launch the local server</p>
-
-                        <pre><code class="language-bash code !text-[14px]">cd example-project/public
-php -S localhost:8000</code></pre>
-
+                    <p>If we go to the path /home, then as a result we will receive a message on the screen:<br>Hello world from Middleware!<br>Hello world from Controller!</p>
 
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
-                        <a href="#Creating project" class="text-[#EBEBEB99] hover:text-white duration-200">Creating project</a>
-                        <a href="#Initial Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">Initial Configuration</a>
-                        <a href="#Starting the server" class="text-[#EBEBEB99] hover:text-white duration-200">Starting the server</a>
+                        <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
+                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
                     </div>
                 </div>
             </div>

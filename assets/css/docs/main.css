@@ -5,6 +5,13 @@
 .docs-content{
     max-width: 650px;
     width: 100%;
+
+    
+    margin-bottom: 500px !important;
+}
+
+html{
+    scroll-behavior: smooth;
 }
 
 body{
@@ -17,6 +24,4 @@ body{
 
 .docs-content a{
     display: inline;
-
-    margin-bottom: 500px;
 }

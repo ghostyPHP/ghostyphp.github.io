@@ -27,13 +27,15 @@
  * --syntax-gutter-background-color-selected: hsl(220, 13%, 26%);
  * --syntax-cursor-line: hsla(220, 100%, 80%, 0.04);
  */
-
+code *{
+    font-family: "JetBrains Mono", monospace !important;
+}
  code[class*="language-"],
  pre[class*="language-"] {
      background: #242424;
      color: hsl(220, 14%, 71%);
      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-     font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+     font-family: "JetBrains Mono", monospace;
      direction: ltr;
      text-align: left;
      white-space: pre;
@@ -47,6 +49,8 @@
      -moz-hyphens: none;
      -ms-hyphens: none;
      hyphens: none;
+     font-size: 14px;
+     font-weight: 500;
  }
  
  /* Selection */

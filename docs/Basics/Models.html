@@ -56,7 +56,7 @@
                             <div class="text-sm font-medium">GETTING STARTED</div>
                             <div class="content">
                                 <a href="../GettingStarted/Introduction.html" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                                <a href="" class="text-[#EBEBEB99] hover:text-white duration-200 active">Installation</a>
+                                <a href="../GettingStarted/Installation.html" class="text-[#EBEBEB99] hover:text-white duration-200">Installation</a>
                             </div>
                         </div>
                         
@@ -67,7 +67,7 @@
                                 <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
                                 <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
                                 <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
-                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
+                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Models</a>
                             </div>
                         </div>
 
@@ -98,48 +98,64 @@
 
                     <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
 
+                        <h1><a id="user-content-h1" class="anchor" name="Models" href="#Models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Models</h1>
 
-                        <h1><a id="user-content-h1" class="anchor" name="Installation" href="#Installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+                        <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Creating project" href="#Creating project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating project</h2>
+                        <p>Model - This component is responsible for the data and also defines the structure of the application.</p>
+                        <p>The model is the component responsible for working with application data. A model represents business logic, stores data, and makes it accessible from a controller or view.</p>
+                        <p>In the context of web applications, the model can interact with the database, provide data validation, and execute and process business rules. The model may also include methods for reading, writing, updating, and deleting data from the database.</p>
+                        <p>Using a model in MVC allows you to separate business logic from data display and user input. This makes the application easier to maintain and extend, reduces component coupling, and makes the code more readable and maintainable.</p>
 
-                        <h3><a id="user-content-h3" class="anchor" name="Composer" href="#Composer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Composer</h3>
+                        <p>By default, all of the models for your application are stored in the app/models/ directory.</p>
 
-                        <p>Before starting the installation, make sure that you have <a href="https://getcomposer.org/">Composer</a> and PHP installed</p>
-
-                        <p>After you have made sure that you have <a href="https://getcomposer.org/">Composer</a> and PHP installed, you can run the following command to create a new project</p>
-
-                        <pre><code class="language-bash code !text-[14px]">composer create-project ghosty/ghosty example-project</code></pre>
-
-
-
-                        <h3><a id="user-content-h3" class="anchor" name="GitHub" href="#GitHub" aria-hidden="true"><span class="octicon octicon-link"></span></a>GitHub</h3>
+                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
 
 
-                        <p>You can also copy the example application code from the Github</p>
+                        <p>In this example, we access the Users table to get all the records from it.</p>
 
-                        <pre><code class="language-bash code !text-[14px]">git clone https://github.com/GhostyPHP/Ghosty</code></pre>
+                        <pre><code class="language-php code">// app/models/User.php
+namespace App\Models;
 
+use Ghosty\Framework\Support\Facades\DB;
+use PDO;
 
-                        <h2><a id="user-content-h2" class="anchor" name="Initial Configuration" href="#Initial Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initial Configuration</h2>
+class User
+{
+    public function all()
+    {
+        return DB::getPDO()
+            ->query('SELECT * FROM `users`')
+            ->fetchAll(PDO::FETCH_ASSOC);
+    }
+}</code></pre>
 
-                        <p>You can configure all the environment variables in the .env file, but remember that this file mainly contains variables needed to run the application, such as secret keys, database connection information and other services, so this file should not be stored in your repositories.</p>
+                        <p>You can also initialize the class object in your <a href="../Basics/Controllers.html">controller</a>.</p>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Starting the server" href="#Starting the server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the server</h2>
+                        <pre><code class="language-php code">// app/controllers/UserController.php
+namespace App\Controllers;
 
-                        <p>After creating and configuring the project, you can go to the directory of the newly created project and launch the local server</p>
+use App\Models\User;
 
-                        <pre><code class="language-bash code !text-[14px]">cd example-project/public
-php -S localhost:8000</code></pre>
+class UserController extends Controller
+{
+    public function index()
+    {
+        $User = new User;
 
+        $Users = $User->all();
 
+        print_r($Users);
+    }
+}</code></pre>
+
+                        
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
-                        <a href="#Creating project" class="text-[#EBEBEB99] hover:text-white duration-200">Creating project</a>
-                        <a href="#Initial Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">Initial Configuration</a>
-                        <a href="#Starting the server" class="text-[#EBEBEB99] hover:text-white duration-200">Starting the server</a>
+                        <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
+                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
                     </div>
                 </div>
             </div>
