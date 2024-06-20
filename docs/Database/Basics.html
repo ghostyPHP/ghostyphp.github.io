@@ -66,7 +66,7 @@
                                 <a href="../Basics/Routing.html" class="text-[#EBEBEB99] hover:text-white duration-200">Routing</a>
                                 <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
                                 <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
-                                <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Middlewares</a>
+                                <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
                                 <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                         <div>
                             <div class="text-sm font-medium">DATABASE</div>
                             <div class="content">
-                                <a href="../Database/Basics.html" class="text-[#EBEBEB99] hover:text-white duration-200">Basics</a>
+                                <a href="../Database/Basics.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Basics</a>
                                 <a href="../Database/Using.html" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
                             </div>
                         </div>
@@ -98,60 +98,69 @@
 
                     <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
 
-                        <h1><a id="user-content-h1" class="anchor" name="Middlewares" href="#Middlewares" aria-hidden="true"><span class="octicon octicon-link"></span></a>Middlewares</h1>
+                        <h1><a id="user-content-h1" class="anchor" name="Basics" href="#Basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h1>
 
                         <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <p>Middleware provides a convenient mechanism for inspecting and filtering HTTP requests coming into your application.</p>
+                        <p>Currently, Ghosty provides first-party support for five databases:</p>
+                        
+                        <p>MySQL 5.7+</p>
+                        <p>PostgreSQL 10.0+</p>
+                        <p>SQLite 3.35.0+</p>
+                        
 
-                        <p>By default, all of the middlewares for your application are stored in the app/middlewares/ directory.</p>
+                        <h2><a id="user-content-h2" class="anchor" name="Configuration" href="#Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+                        <p>You can change the database connection configuration in the .env file. For example, standard configuration for connecting to a MySQL database:</p>
 
-                        <p>Middlewares must be specified in the <a href="../Basics/Routing.html">route</a> to use it.</p>
+<pre><code class="language-php code">// .env
 
-                        <pre><code class="language-php code">// routes/api.php
-use Ghosty\Framework\Support\Facades\Route;
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ghosty
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
 
-Route::get('/home')
-    ->controller(\App\Controllers\HomeController::class)
-    ->action('show')
-    ->middleware(\App\Middlewares\HomeMiddleware::class);</code></pre>
+                        <h3><a id="user-content-h3" name="MySQL Configuration" class="anchor" href="#MySQL Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>MySQL Configuration</h3>
 
-                        <p>Here is an example of middleware that displays 'Hello World from Middleware!'</p>
+<pre><code class="language-php code">// .env
 
-                        <pre><code class="language-php code">// app/middlewares/HomeMiddleware.php
-namespace App\Middlewares;
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ghosty
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
 
-class HomeMiddleware
-{
-    public function handle()
-    {
-        echo 'Hello World! from middleware';
-    }
-}</code></pre>
+                        <h3><a id="user-content-h3" name="SQLite Configuration" class="anchor" href="#SQLite Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>SQLite Configuration</h3>
 
-                        <p>Here is an example of HomeController that displays 'Hello World from Controller!'</p>
+<pre><code class="language-php code">// .env
 
-                        <pre><code class="language-php code">// app/Controllers/HomeController.php
-namespace App\Controllers;
+DB_CONNECTION=sqlite
+DB_DATABASE=/absolute/path/to/database.sqlite</code></pre>
 
-class HomeController
-{
-    public function index()
-    {
-        echo 'Hello World from Controller!';
-    }
-}</code></pre>
 
-                    <p>If we go to the path /home, then as a result we will receive a message on the screen:<br>Hello world from Middleware!<br>Hello world from Controller!</p>
+                        <h3><a id="user-content-h3" name="PostgreSQL Configuration" class="anchor" href="#PostgreSQL Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>PostgreSQL Configuration</h3>
+
+<pre><code class="language-php code">// .env
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=ghosty
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
 
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
                         <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
+                        <a href="#Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">Configuration</a>
+                        <a href="#MySQL Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">MySQL Configuration</a>
+                        <a href="#SQLite Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">SQLite Configuration</a>
+                        <a href="#PostgreSQL Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">PostgreSQL Configuration</a>
                     </div>
                 </div>
             </div>
