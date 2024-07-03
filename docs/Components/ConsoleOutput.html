@@ -108,9 +108,149 @@
 
                         <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
+                        <p>The Ghostly Console/Output Component Allows you to easily output text to the console using objects such as Text and Color</p>
+
                         <h2><a id="user-content-h2" class="anchor" name="Use" href="#Use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
 
+                        <h3><a id="user-content-h3" class="anchor" name="Using introduction" href="#Using introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using introduction</h3>
 
+                        <p>The output class allows you to print some text to the console. Using the Output::prinstStatic() method you can display various text on the screen, for example:</p>
+<pre><code class="language-php code">// app/Console/TestCommand.php
+use Ghosty\Component\Console\Output\Output;
+
+Output::printStatic('some text');
+</code></pre>
+
+<p>Running a command</p>
+
+<pre><code class="language-bash code">php ./app/Console/TestCommand.php</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Colored text" href="#Colored text" aria-hidden="true"><span class="octicon octicon-link"></span></a>Colored text</h3>
+
+                        <p>To display colored text on the screen, use the Ghosty\Component\Console\Output\Text\Text object, as well as Ghosty\Component\Console\Output\Color\TextColor.</p>
+                        <p>The Text object constructor takes the following parameters as arguments:</p>
+                        <p>string $text - Text to output to the console.</p>
+                        <p>TextColor $textColor - Text color.</p>
+                        <p>BackgroundColor $backgroundColor - Background color.</p>
+                        <p>For example:</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$TextColor = new TextColor('Red');
+$BackgroundColor = new BackgroundColor('White');
+
+$Text = new Text('Some text', $TextColor, $BackgroundColor);
+
+echo $Text; 
+Output::printStatic($Text);
+</code></pre>
+                        <p>Output:</p>
+                        <pre><code class="language-bash code !text-red-600 !bg-white !rounded-none">Some TextSome text</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="List of colors" href="#List of colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>List of colors</h3>
+
+                        <p>You can use the TextColor and BackgroundColor or AbstractColor class constants, they list all available colors.</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$TextColor = new TextColor(AbstactColor::Blue);
+$BackgroundColor = new BackgroundColor(AbstactColor::Yellow);
+
+$Text = new Text('Some text', $TextColor, $BackgroundColor);
+
+Output::printStatic($Text);
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="language-bash code !text-blue-600 !bg-yellow-600 !rounded-none">Some Text</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Text as string" href="#Text as string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Text as string</h3>
+                        <p>You can also use the Text object as a string.</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$some = new Text(
+    'Some',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::DarkGray)
+);
+
+$text = new Text(
+    'text',
+    new TextColor(AbstactColor::Red),
+    new BackgroundColor(AbstactColor::Green)
+);
+
+echo $some . $text;
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="!bg-slate-600">Some</span><span class="!text-red-600 !bg-green-700">text</span></code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Text Bag" href="#Text Bag" aria-hidden="true"><span class="octicon octicon-link"></span></a>Text Bag</h3>
+
+                        
+                        <p>Using TextBag you can output multiple Text objects to the console using the Output object's printStatic method or the default echo method</p>
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$some = new Text(
+    'Some',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::DarkGray)
+);
+
+$text = new Text(
+    'text',
+    new TextColor(AbstactColor::Red),
+    new BackgroundColor(AbstactColor::Green)
+);
+
+echo new TextBag([$some, $text]);
+</code></pre>
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="!bg-slate-600">Some</span><span class="!text-red-600 !bg-green-700">text</span></code></pre>
+
+                        <p>You can also use the TextBag object as a string:</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$some = new Text(
+    'Some',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::DarkGray)
+);
+
+$text = new Text(
+    'text',
+    new TextColor(AbstactColor::Red),
+    new BackgroundColor(AbstactColor::Green)
+);
+
+echo new TextBag([$some, $text]) . "\n" . new TextBag([$text, $some]);
+</code></pre>
+
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="!bg-slate-600">Some</span><span class="!text-red-600 !bg-green-700">text</span>
+<span class="!text-red-600 !bg-green-700">text</span><span class="!bg-slate-600">Some</span></code></pre>
+
+
+                    <h3><a id="user-content-h3" class="anchor" name="Text array" href="#Text array" aria-hidden="true"><span class="octicon octicon-link"></span></a>Text array</h3>
+
+                    <p>Using the printStatic() or print() method of the Output object, you can print text from an array to the console. The array can contain both Text objects and strings or any other objects that have the __toString() method</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$some = new Text(
+    'Some',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::DarkGray)
+);
+$text = new Text(
+    'text',
+    new TextColor(AbstactColor::Red),
+    new BackgroundColor(AbstactColor::Green)
+);
+
+Output::printStatic([$some, ' - ', $text]);
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="!bg-slate-600">Some</span> - <span class="!text-red-600 !bg-green-700">text</span></code></pre>
 
                     </div>
 
