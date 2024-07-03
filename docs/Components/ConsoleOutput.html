@@ -110,7 +110,9 @@
 
                         <p>The Ghostly Console/Output Component Allows you to easily output text to the console using objects such as Text and Color</p>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Use" href="#Use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
+                        <h3><a id="user-content-h3" class="anchor" name="Installation" href="#Installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+                        <pre><code class="language-bash code">composer r ghosty/console-output</code></pre>
 
                         <h3><a id="user-content-h3" class="anchor" name="Using introduction" href="#Using introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using introduction</h3>
 
@@ -124,6 +126,10 @@ Output::printStatic('some text');
 <p>Running a command</p>
 
 <pre><code class="language-bash code">php ./app/Console/TestCommand.php</code></pre>
+
+
+
+                        <h2><a id="user-content-h2" class="anchor" name="Using Colors" href="#Using Colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Colors</h2>
 
                         <h3><a id="user-content-h3" class="anchor" name="Colored text" href="#Colored text" aria-hidden="true"><span class="octicon octicon-link"></span></a>Colored text</h3>
 
@@ -252,12 +258,92 @@ Output::printStatic([$some, ' - ', $text]);
                         <p>Output:</p>
                         <pre><code class="code !rounded-none"><span class="!bg-slate-600">Some</span> - <span class="!text-red-600 !bg-green-700">text</span></code></pre>
 
+                        <h2><a id="user-content-h2" class="anchor" name="Using Decorations" href="#Using Decorations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Decorations</h2>
+
+                        <p>To use text decorations, you need to pass an object of type TextDecoration or DecorationBag or an array of TextDecoration objects to the constructor of the Text class, for example:</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$text = new Text(
+    'Text',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::Default),
+    new TextDecoration("Underlined")
+);
+
+echo $text; 
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="underline">Text</span></code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="List of decorations" href="#List of decorations" aria-hidden="true"><span class="octicon octicon-link"></span></a>List of decorations</h3>
+                        <p>You can use constants of the Text Decoration class; they list all available text decorations, for example:</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$text = new Text(
+    'Text',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::Default),
+    new TextDecoration(TextDecoration::UNDERLINED)
+);
+
+echo $text; 
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="underline">Text</span></code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Multiple decorations" href="#Multiple decorations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple decorations</h3>
+
+                        <p>To use multiple decorations, you can pass an array of TextDecoration objects or a DecorationBag object to the Text class constructor, for example:</p>
+
+                        <h4><a id="user-content-h4" class="anchor" name="Using array" href="#Using array" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using array</h4>
+
+                        <p>In this example, we pass an array of TextDecoration objects to the Text class constructor</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$text = new Text(
+    'Text',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::Default),
+    [new TextDecoration(TextDecoration::UNDERLINED),
+    new TextDecoration(TextDecoration::REVERSE)]
+);
+
+echo $text; 
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="underline text-black bg-white">Text</span></code></pre>
+
+                        <h4><a id="user-content-h4" class="anchor" name="Using DecorationBag" href="#Using DecorationBag" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using DecorationBag</h4>
+
+                        <p>In this example, we pass an DecorationBag object to the Text class constructor</p>
+
+<pre><code class="language-php code">// app/Console/TestCommand.php
+$text = new Text(
+    'Text',
+    new TextColor(AbstactColor::Default),
+    new BackgroundColor(AbstactColor::Default),
+    new DecorationBag([
+        new TextDecoration(TextDecoration::UNDERLINED),
+        new TextDecoration(TextDecoration::REVERSE)
+    ])
+);
+
+echo $text; 
+</code></pre>
+
+                        <p>Output:</p>
+                        <pre><code class="code !rounded-none"><span class="underline text-black bg-white">Text</span></code></pre>
+                    
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
                         <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                        <a href="#Use" class="text-[#EBEBEB99] hover:text-white duration-200">Use</a>
+                        <a href="#Using Colors" class="text-[#EBEBEB99] hover:text-white duration-200">Using Colors</a>
+                        <a href="#Using Decorations" class="text-[#EBEBEB99] hover:text-white duration-200">Using Decorations</a>
                     </div>
                 </div>
             </div>
