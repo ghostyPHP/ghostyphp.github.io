@@ -67,7 +67,7 @@
                                 <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
                                 <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
                                 <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
-                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Models</a>
+                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@
                         <div>
                             <div class="text-sm font-medium">FILESYSTEM</div>
                             <div class="content">
-                                <a href="../Filesystem/Basics.html" class="text-[#EBEBEB99] hover:text-white duration-200">Basics</a>
+                                <a href="../Filesystem/Basics.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Basics</a>
                             </div>
                         </div>
 
@@ -104,64 +104,155 @@
 
                     <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
 
-                        <h1><a id="user-content-h1" class="anchor" name="Models" href="#Models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Models</h1>
+
+                        <h1><a id="user-content-h1" class="anchor" name="Filesystem" href="#Filesystem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filesystem</h1>
 
                         <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <p>Model - This component is responsible for the data and also defines the structure of the application.</p>
-                        <p>The model is the component responsible for working with application data. A model represents business logic, stores data, and makes it accessible from a controller or view.</p>
-                        <p>In the context of web applications, the model can interact with the database, provide data validation, and execute and process business rules. The model may also include methods for reading, writing, updating, and deleting data from the database.</p>
-                        <p>Using a model in MVC allows you to separate business logic from data display and user input. This makes the application easier to maintain and extend, reduces component coupling, and makes the code more readable and maintainable.</p>
+                        <p>The Filesystem provides a comprehensive and intuitive interface for handling file operations. It is designed to simplify the process of interacting with the file system, making it easy to create, read, write, and check for the existence of files. Key features include:</p>
 
-                        <p>By default, all of the models for your application are stored in the app/models/ directory.</p>
-
-                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+                        <p><b>File Creation:</b> Easily create new files in the specified directory.</p>
+                        <p><b>Existence Check:</b> Verify whether a file already exists, preventing duplicate creations and potential overwrites.</p>
+                        <p><b>Data Writing:</b> Write data to files efficiently, supporting both string and binary data.</p>
+                        <p><b>Data Reading:</b> Read the contents of files into your application, with support for various data formats.</p>
 
 
-                        <p>In this example, we access the Users table to get all the records from it.</p>
-
-                        <pre><code class="language-php code">// app/models/User.php
-namespace App\Models;
-
-use Ghosty\Framework\Support\Facades\DB;
-use PDO;
-
-class User
-{
-    public function all()
-    {
-        return DB::getPDO()
-            ->query('SELECT * FROM `users`')
-            ->fetchAll(PDO::FETCH_ASSOC);
-    }
-}</code></pre>
-
-                        <p>You can also initialize the class object in your <a href="../Basics/Controllers.html">controller</a>.</p>
-
-                        <pre><code class="language-php code">// app/controllers/UserController.php
-namespace App\Controllers;
-
-use App\Models\User;
-
-class UserController extends Controller
-{
-    public function index()
-    {
-        $User = new User;
-
-        $Users = $User->all();
-
-        print_r($Users);
-    }
-}</code></pre>
+                        <h2><a id="user-content-h2" class="anchor" name="Use" href="#Use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
 
                         
+                        <h3><a id="user-content-h3" class="anchor" name="Initialization" href="#Initialization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initialization</h3>
+
+                        <p>You can get an object of the Filesystem class by creating a new object</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Filesystem\Filesystem;
+
+class TestController
+{
+    public function show()
+    {
+        $Filesystem = new Filesystem();
+    }
+}
+</code></pre>
+<h4><a id="user-content-h4" class="anchor" name="Also using DI" href="#Also using DI" aria-hidden="true"><span class="octicon octicon-link"></span></a>Also using DI</h4>
+
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Filesystem\Filesystem;
+
+class TestController
+{
+    public function __construct(private Filesystem $filesystem)
+    {
+        //
+    }
+}
+</code></pre>
+<h4><a id="user-content-h4" class="anchor" name="Also using DI" href="#Also using DI" aria-hidden="true"><span class="octicon octicon-link"></span></a>Also using File Facade (Recomended)</h4>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        File::exists('./test.php');
+    }
+}
+</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="File exists" href="#File exists" aria-hidden="true"><span class="octicon octicon-link"></span></a>File exists</h3>
+                        <p>This method checks whether the specified file exists</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        File::exists('./test.php');
+    }
+}
+</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Put content" href="#Put content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Put content</h3>
+                        <p>This method writes data to a file, if there is data in the file it will be replaced with new ones, if the file does not exist it will be created</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        File::put('./test.php', 'Test content');
+    }
+}
+</code></pre>
+                        <h3><a id="user-content-h3" class="anchor" name="Get content" href="#Get content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get content</h3>
+                        <p>This method returns the contents of the file as a string, if the file does not exist an exception will be thrown</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        $content = File::get('./test.php');
+    }
+}
+</code></pre>
+                        <h3><a id="user-content-h3" class="anchor" name="Append content" href="#Append content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Append content</h3>
+                        <p>This method appends content to the end of a specific file, if the file does not exist it will be created</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        File::append('./test.php', 'Content to append');
+    }
+}
+</code></pre>
+                        <h3><a id="user-content-h3" class="anchor" name="Prepend content" href="#Prepend content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prepend content</h3>
+                        <p>This method appends content to the beginning of a specific file, if the file does not exist it will be created</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Framework\Support\Facade\File;
+
+class TestController
+{
+    public function show()
+    {
+        File::prepend('./test.php', 'Content to prepend');
+    }
+}
+</code></pre>
+
+
+                        
+
+
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
                         <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
+                        <a href="#Use" class="text-[#EBEBEB99] hover:text-white duration-200">Use</a>
                     </div>
                 </div>
             </div>

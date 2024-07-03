@@ -67,7 +67,7 @@
                                 <a href="../Basics/Controllers.html" class="text-[#EBEBEB99] hover:text-white duration-200">Controllers</a>
                                 <a href="../Basics/Actions.html" class="text-[#EBEBEB99] hover:text-white duration-200">Actions</a>
                                 <a href="../Basics/Middlewares.html" class="text-[#EBEBEB99] hover:text-white duration-200">Middlewares</a>
-                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Models</a>
+                                <a href="../Basics/Models.html" class="text-[#EBEBEB99] hover:text-white duration-200">Models</a>
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@
                             <div class="text-sm font-medium">ARCHITECTURE CONCEPTS</div>
                             <div class="content">
                                 <a href="../ArchitectureConcepts/ServiceContainer.html" class="text-[#EBEBEB99] hover:text-white duration-200">Service Container</a>
-                                <a href="../ArchitectureConcepts/ServiceProviders.html" class="text-[#EBEBEB99] hover:text-white duration-200">Service Providers</a>
+                                <a href="../ArchitectureConcepts/ServiceProviders.html" class="text-[#EBEBEB99] hover:text-white duration-200 active">Service Providers</a>
                                 <a href="../ArchitectureConcepts/Facades.html" class="text-[#EBEBEB99] hover:text-white duration-200">Facades</a>
                             </div>
                         </div>
@@ -104,64 +104,21 @@
 
                     <div class="docs-content markdown-body bg-transparent ml-10 px-2 py-5">
 
-                        <h1><a id="user-content-h1" class="anchor" name="Models" href="#Models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Models</h1>
+                        <h1><a id="user-content-h1" class="anchor" name="Service Provider" href="#Service Provider" aria-hidden="true"><span class="octicon octicon-link"></span></a>Service Provider</h1>
 
                         <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <p>Model - This component is responsible for the data and also defines the structure of the application.</p>
-                        <p>The model is the component responsible for working with application data. A model represents business logic, stores data, and makes it accessible from a controller or view.</p>
-                        <p>In the context of web applications, the model can interact with the database, provide data validation, and execute and process business rules. The model may also include methods for reading, writing, updating, and deleting data from the database.</p>
-                        <p>Using a model in MVC allows you to separate business logic from data display and user input. This makes the application easier to maintain and extend, reduces component coupling, and makes the code more readable and maintainable.</p>
-
-                        <p>By default, all of the models for your application are stored in the app/models/ directory.</p>
-
-                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+                        <h2><a id="user-content-h2" class="anchor" name="Use" href="#Use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
 
 
-                        <p>In this example, we access the Users table to get all the records from it.</p>
 
-                        <pre><code class="language-php code">// app/models/User.php
-namespace App\Models;
 
-use Ghosty\Framework\Support\Facades\DB;
-use PDO;
-
-class User
-{
-    public function all()
-    {
-        return DB::getPDO()
-            ->query('SELECT * FROM `users`')
-            ->fetchAll(PDO::FETCH_ASSOC);
-    }
-}</code></pre>
-
-                        <p>You can also initialize the class object in your <a href="../Basics/Controllers.html">controller</a>.</p>
-
-                        <pre><code class="language-php code">// app/controllers/UserController.php
-namespace App\Controllers;
-
-use App\Models\User;
-
-class UserController extends Controller
-{
-    public function index()
-    {
-        $User = new User;
-
-        $Users = $User->all();
-
-        print_r($Users);
-    }
-}</code></pre>
-
-                        
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
                         <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
+                        <a href="#Use" class="text-[#EBEBEB99] hover:text-white duration-200">Use</a>
                     </div>
                 </div>
             </div>
