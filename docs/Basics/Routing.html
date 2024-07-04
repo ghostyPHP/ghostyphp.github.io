@@ -106,61 +106,242 @@
 
                         <h1><a id="user-content-h1" class="anchor" name="Routing" href="#Routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routing</h1>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Route registration" href="#Route registration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Route registration</h2>
+                        <h2><a id="user-content-h2" class="anchor" name="Configuration" href="#Configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
 
-                        <p>This example initializes the Home route with the Home <a href="Controllers.html">Controller</a>, Index <a href="Actions.html">action</a> and GET method.</p>
+                        <p>To specify the location of the file with routes, change the routes parameter in the configuration file along the path config/routing.php</p>
 
-                        <p>By default, all of the routes for your application are stored in the routes/ directory.</p>
+                        <p>The path to the folder with routes is specified relative to the root directory of the project, for example:</p>
+                        <pre><code class="language-php code">// config/routing.php
+// Path to routes file from base dir
+// default: '/routes/api.php'
+'routes' => '/routes/api.php'</code></pre>
+
+                        <p>You can also specify a route description method, for example:</p>
+                        <pre><code class="language-php code">// config/routing.php
+// If true routes file should return a RouteStack object.
+// If false, the singleton RouteStackContract is used.
+// default: false
+'return' => true,</code></pre>
+                        
+                        <p>In this case, the routes/api.php file should return an object of type RouteStack for <a href="../Basics/Routing.html#Returning%20method">example</a></p>
+
+                        <h2><a id="user-content-h2" class="anchor" name="Default Route Registration" href="#Default Route Registration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default Route Registration</h2>
+
+                        <p>To register routes this way, you need to set the return parameter in the config/routing.php configuration file to false:</p>
+
+
+<pre><code class="language-php code">// config/routing.php
+// If true routes file should return a RouteStack object.
+// If false, the singleton RouteStackContract is used.
+// default: false
+'return' => false,</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Basics Default Method" href="#Basics Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
+
+                        <h4><a id="user-content-h4" class="anchor" name="Using Route Facade Basics" href="#Using Route Facade Basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Route Facade</h4>
+
+                        <p>In this example, we define a GET /user route using the Route facade, this route will be processed by the TestController::show() method</p>
 
 
                         <pre><code class="language-php code">// routes/api.php
 use Ghosty\Framework\Support\Facades\Route;
 
-Route::get('/home')
-    ->controller(\App\Controllers\HomeController::class)
-    ->action('index');</code></pre>
-
-                        <h2><a id="user-content-h2" class="anchor" name="Parameters" href="#Parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h2>
-
-                        <p>If you want to use certain parameters in your route so that you can use them in your application, you can specify them in the route.</p>
-
-                        <pre><code class="language-php code">// routes/api.php
-use Ghosty\Framework\Support\Facades\Route;
-
-Route::get('/profile/{id}')
-    ->controller(\App\Controllers\ProfileController::class)
+Route::get('/user')
+    ->controller(\App\Controllers\TestController::class)
     ->action('show');</code></pre>
+
+                        <h4><a id="user-content-h4" class="anchor" name="Using Service Container Basics Default Method" href="#Using Service Container Basics Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Service Container</h4>
+
+                        <p>In this example we define a route GET /user ServiceContainer this route will process the TestController::show() method.</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+/**
+* @var RouteStackContract
+*/
+$RouteStack = Container::make(RouteStackContract::class);
+$RouteStack->push(new Route(
+    "GET",
+    "/user",
+    \App\Controllers\TestController::class,
+    "show"
+));</code></pre>
+
+
+
+
+                        <h3><a id="user-content-h3" class="anchor" name="Parameters Default Method" href="#Parameters Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h3>
+                        
+                        <h4><a id="user-content-h4" class="anchor" name="Using Route Facade Parameters Default Method" href="#Using Route Facade Parameters Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Route Facade</h4>
+
+                        <p>In this example, we use the Route facade to define a GET /user/{id} route that will process the TestController::show() method, where {id} is a dynamic parameter:</p>
+
+                        <p>You can pass parameters either as an array or as a Ghosty\Component\Routing\Contracts\Bags\ParameterBag object</p>
+                        <pre><code class="language-php code">// routes/api.php
+use Ghosty\Framework\Support\Facades\Route;
+
+Route::get('/user/{id}')
+    ->controller(\App\Controllers\TestController::class)
+    ->action('show')
+    ->parameters(['id']); // or ->parameters(new ParameterBag(['{id}']))</code></pre>
                             
-                        <p>To get the options in the application, use the following method.</p>
+                        <h4><a id="user-content-h4" class="anchor" name="Using Service Container" href="#Using Service Container" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Service Container</h4>
 
-                        <pre><code class="language-php code">// app/Controllers/ProfileController.php
-namespace App\Controllers;
+                        <p>In this example, we use ServiceContainer to define a GET /user/{id} route that will process the TestController::show() method, where {id} is a dynamic parameter:</p>
 
-use Ghosty\Framework\Support\Facades\Request;
+                        <p>In this case, to define parameters, you must only pass an object of type Ghosty\Component\Routing\Contracts\Bags\ParameterBag</p>
 
-class ProfileController{
-    public function show(){
-        $id = Request::route('id');
-    }
-}</code></pre>
+                        <pre><code class="language-php code">// routes/api.php
+/**
+* @var RouteStackContract
+*/
+$RouteStack = Container::make(RouteStackContract::class);
+$RouteStack->push(new Route(
+    "GET",
+    "/user/{id}",
+    \App\Controllers\TestController::class,
+    "show",
+    new ParameterBag(['{id}'])
+));</code></pre>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Available Route Methods" href="#Available Route Methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Available Route Methods</h2>
+                        <h3><a id="user-content-h3" class="anchor" name="Middlewares Default Method" href="#Middlewares Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Middlewares</h3>
 
-                        <p>Below is a list of all supported routing methods.</p>
+                        
+                         
+                        <h4><a id="user-content-h4" class="anchor" name="Using Route Facade Middlewares Default Method" href="#Using Route Facade Middlewares Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Route Facade</h4>
 
-<pre><code class="language-php code">use Ghosty\Framework\Support\Facades\Route;
+                        <p>In this example, using the Route façade, we register the POST /user route, which will process the TestController::store() method, and we also define the TestMiddleware middleware for this route</p>
 
-Route::get('/home');
-Route::post('/home');
-</code></pre>
+                        <p>You can pass middlewares either as an array or as a Ghosty\Component\Routing\Contracts\Bags\MiddlewareBag object</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+use Ghosty\Framework\Support\Facades\Route;
+
+Route::post('/user')
+    ->controller(\App\Controllers\TestController::class)
+    ->action('store')
+    ->middlewares([TestMiddleware::class]); 
+// or ->middlewares(new MiddlewareBag([TestMiddleware::class]))</code></pre>
+
+                        <h4><a id="user-content-h4" class="anchor" name="Using Service Container Middlewares Default Method" href="#Using Service Container Middlewares Default Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Service Container</h4>
+
+                        
+                        <p>In this example, using the ServiceContainer, we register the POST /user route, which will process the TestController::store() method, and we also define the TestMiddleware middleware for this route</p>
+
+                        <p>In this case, to define middlewares, you must only pass an object of type Ghosty\Component\Routing\Contracts\Bags\MiddlewareBag</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+/**
+* @var RouteStackContract
+*/
+$RouteStack = Container::make(RouteStackContract::class);
+$RouteStack->push(new Route(
+    "POST",
+    "/user",
+    \App\Controllers\TestController::class,
+    "store",
+    new ParameterBag(),
+    new MiddlewareBag([TestMiddleware::class])
+));</code></pre>
+
+
+
+
+
+
+
+
+
+
+                        <h2><a id="user-content-h2" class="anchor" name="Returning Method" href="#Returning Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Returning Method</h2>
+
+                        <p>To register routes this way, you need to set the return parameter in the config/routing.php configuration file to true:</p>
+
+
+<pre><code class="language-php code">// config/routing.php
+// If true routes file should return a RouteStack object.
+// If false, the singleton RouteStackContract is used.
+// default: false
+'return' => true,</code></pre>
+
+                        
+
+                        <p>With this method of registering routes, the file with the description of the routes must return an object of the RouteStack class from which the routes will be loaded, for example:</p>
+
+
+                        <pre><code class="language-php code">// routes/api.php
+return (new RouteStack)->push(new Route(
+    "GET",
+    "/user",
+    \App\Controllers\TestController::class,
+    "show"
+));</code></pre>
+
+<h3><a id="user-content-h3" class="anchor" name="Basics Returning Method" href="#Basics Returning Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
+                        
+                        <p>In this example we define a route GET /user ServiceContainer this route will process the TestController::show() method.</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+return (new RouteStack)->push(new Route(
+    "GET",
+    "/user",
+    \App\Controllers\TestController::class,
+    "show"
+));</code></pre>
+
+
+
+
+                        <h3><a id="user-content-h3" class="anchor" name="Parameters Returning Method" href="#Parameters Returning Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h3>
+                        
+                        <p>In this example, we use ServiceContainer to define a GET /user/{id} route that will process the TestController::show() method, where {id} is a dynamic parameter:</p>
+
+                        <p>In this case, to define parameters, you must only pass an object of type Ghosty\Component\Routing\Contracts\Bags\ParameterBag</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+return (new RouteStack)->push(new Route(
+    "GET",
+    "/user/{id}",
+    \App\Controllers\TestController::class,
+    "show",
+    new ParameterBag(['{id}'])
+));</code></pre>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Middlewares Returning Method" href="#Middlewares Returning Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Middlewares</h3>
+
+                        <p>In this example, using the ServiceContainer, we register the POST /user route, which will process the TestController::store() method, and we also define the TestMiddleware middleware for this route</p>
+
+                        <p>In this case, to define middlewares, you must only pass an object of type Ghosty\Component\Routing\Contracts\Bags\MiddlewareBag</p>
+
+                        <pre><code class="language-php code">// routes/api.php
+return (new RouteStack)->push(new Route(
+    "POST",
+    "/user",
+    \App\Controllers\TestController::class,
+    "create",
+    new ParameterBag(),
+    new MiddlewareBag([TestMiddleware::class])
+));</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                        
 
                     </div>
 
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
-                        <a href="#Route registration" class="text-[#EBEBEB99] hover:text-white duration-200">Route registration</a>
-                        <a href="#Parameters" class="text-[#EBEBEB99] hover:text-white duration-200">Parameters</a>
-                        <a href="#Available Route Methods" class="text-[#EBEBEB99] hover:text-white duration-200">Available Route Methods</a>
+                        <a href="#Configuration" class="text-[#EBEBEB99] hover:text-white duration-200">Configuration</a>
+                        <a href="#Default Route Registration" class="text-[#EBEBEB99] hover:text-white duration-200">Default Route Registration</a>
+                        <a href="#Returning Method" class="text-[#EBEBEB99] hover:text-white duration-200">Returning Method</a>
                     </div>
                 </div>
             </div>
