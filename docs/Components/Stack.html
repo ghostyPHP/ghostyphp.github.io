@@ -108,8 +108,167 @@
 
                         <h2><a id="user-content-h2" class="anchor" name="Introduction" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-                        <h2><a id="user-content-h2" class="anchor" name="Use" href="#Use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use</h2>
+                        <p>A Stack is a “last in, first out” or “LIFO” collection that only allows access to the value at the top of the structure and iterates in that order, destructively.</p>
 
+                        <h3><a id="user-content-h3" class="anchor" name="Installation" href="#Installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+                        <pre><code class="language-bash code">composer r ghosty/stack</code></pre>
+
+                        <h2><a id="user-content-h2" class="anchor" name="Using" href="#Using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+
+                        <h3><a id="user-content-h3" class="anchor" name="Initialization" href="#Initialization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initialization</h3>
+<p>This way you can create a new object of type Stakc</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+use Ghosty\Component\Stack\Stack;
+
+class TestController
+{
+    public function show()
+    {
+        $Stack = new Stack();
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="Push" href="#Push" aria-hidden="true"><span class="octicon octicon-link"></span></a>Push</h3>
+<p>The push method adds a new element to the stack.</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        ...
+
+        $Stack->push('1');
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="Pop" href="#Pop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pop</h3>
+<p>The pop method returns the last added stack element and removes it from the stack</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        $Element = $Stack->pop(); // '1'
+
+        count($Stack); // 0;
+
+        
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="Top" href="#Top" aria-hidden="true"><span class="octicon octicon-link"></span></a>Top</h3>
+<p>The top method returns the last added stack element without removing it from the stack</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        ...
+
+        $Stack->push('1');
+
+        $Element = $Stack->top(); // '1'
+
+        count($Stack); // 1
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="isEmpty" href="#isEmpty" aria-hidden="true"><span class="octicon octicon-link"></span></a>isEmpty</h3>
+<p>The isEmpty method returns true if the stack is empty, false otherwise</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        $empty = (new Stack())->push('1')->isEmpty(); // false
+
+        $empty = (new Stack())->isEmpty(); // true
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="Clear" href="#Clear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clear</h3>
+<p>The clear method clears the stack</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        $Stack = (new Stack())->push('1');
+        
+        $empty = $Stack->isEmpty(); // false
+        $empty = $Stack->clear()->isEmpty(); // true
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="__toArray" href="#__toArray" aria-hidden="true"><span class="octicon octicon-link"></span></a>__toArray</h3>
+<p>The __toArray method returns all elements of the stack as an array</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        $Stack = (new Stack())->push('1')->push('2');
+        $array = $Stack->__toArray(); // ['2', '1']
+    }
+}
+</code></pre>
+<h3><a id="user-content-h3" class="anchor" name="Count" href="#Count" aria-hidden="true"><span class="octicon octicon-link"></span></a>Count</h3>
+<p>The count method returns the number of Stack elements, you can also use the standard PHP count method by passing an object of the Stack class to it</p>
+<pre><code class="language-php code">// app/Controllers/TestController.php
+namespace App\Controllers;
+
+class TestController
+{
+    public function show()
+    {
+        $Stack = (new Stack())->push('1')->push('2');
+
+        $Count = $Stack->count(); // 2
+
+        $Count = count($Stack); // 2
+    }
+}
+</code></pre>
+
+<h2><a id="user-content-h2" class="anchor" name="Making Stack" href="#Making Stack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Making Stack</h2>
+<p>Thanks to the AbstractStack class, you can create your own Stack class thanks to abstract class inheritance.<br>You can also override methods or write new ones in your class</p>
+<pre><code class="language-php code">// app/Stacks/TestStack.php
+namespace App\Stacks;
+
+use Ghosty\Component\Stack\AbstractStack;
+
+class TestStack extends AbstractStack
+{
+    /**
+    *@param string $item Item to push
+    */
+    #[\Override]
+    public function push(mixed $item): static
+    {
+        if(!is_string($item))
+        {
+            throw new \Exception("Error");
+        }
+
+        return parent::push($item);
+    }
+}
+</code></pre>
 
 
                     </div>
@@ -117,7 +276,7 @@
                     <div class="h-fit w-[200px] ml-auto nav-page">
                         <div class="text-sm font-medium">ON THIS PAGE</div>
                         <a href="#Introduction" class="text-[#EBEBEB99] hover:text-white duration-200">Introduction</a>
-                        <a href="#Use" class="text-[#EBEBEB99] hover:text-white duration-200">Use</a>
+                        <a href="#Using" class="text-[#EBEBEB99] hover:text-white duration-200">Using</a>
                     </div>
                 </div>
             </div>
